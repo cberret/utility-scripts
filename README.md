@@ -1,7 +1,7 @@
 # utility-scripts
 Just useful scripts.
 
-## githubsetup.sh
+## gitsetup.sh
 Automatically creates a Github repo and sends the contents of a folder. It takes three arguments: the path to a local directory, your Github username, and the name of the new repo you want to set up.
 NB: The script assumes that you have public key authentication set up for your Gthub account.
 
