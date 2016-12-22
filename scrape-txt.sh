@@ -8,14 +8,26 @@ fulldate=$(date +'%v') ## date as e.g. 04-July-2016
 echo "ENTER THE URL OF THE WEBSITE"
 read url
 
-## extracts the domain name, e.g. everything after the final slash in the url
+## if the url contains a trailing slash, remove it; the naming script below
+## looks for the page name after the final slash in the url
+if [[ "$url" == */ ]]; then
+  url="${url::-1}"
+fi
+
+## the next two lines extract the domain name, first by removing everything 
+## up to and including the // in the url, e.g. it cuts "http://" et cetera
 domain="${url#*//}" 
+## ... and then removing everything after the next / in the remaining string
+## e.g. "example.com/foo/bar/" becomes "example.com"
 domain="${domain%%/*}"
-## extracts the pagename, e.g. the chunk of the url after the final slash
-last=$(echo ${url##*/})
+
+## extracts the pagename, e.g. the chunk of the url after the final slash.
+## nb: the function beiginning "if [[ "$url" == */ ]]" above ensures that 
+## the final character is not a "/"
+page=$(echo ${url##*/})
 
 ## path to directory and filename as date + domain name + page name dot markdown
-filename="$dir/$date-$domain-$last.txt"
+filename="$dir/$date-$domain-$page.txt"
 echo -e "FILE WILL BE SAVED TO:\n$filename"
 
 # lynx -dump $url > $filename
