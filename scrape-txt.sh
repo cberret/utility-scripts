@@ -33,6 +33,9 @@ echo -e "FILE WILL BE SAVED TO:\n$filename"
 # lynx -dump $url > $filename
 lynx -source -force_html $url > temp.html
 
+# ensure that temp.html is encoded in utf-8
+#iconv -t utf-8 temp.html
+
 ## pandoc turns temp.html into whatever.md; standalone and normalize flags
 pandoc temp.html -S --normalize -o $filename
 
